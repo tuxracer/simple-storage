@@ -38,7 +38,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
     get: function(key, type) {
       var e, val;
-
       if (type == null) {
         type = 'local';
       }
@@ -64,7 +63,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      if (typeof localStorage.clear === 'function') {
+      if (typeof (typeof localStorage !== "undefined" && localStorage !== null ? localStorage.clear : void 0) === 'function') {
         if (type === 'local') {
           return localStorage.clear();
         } else {
