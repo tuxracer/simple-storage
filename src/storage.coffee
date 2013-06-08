@@ -19,9 +19,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     root.storage = factory()
 ) this, ->
   set: (key, val, type = 'local') ->
-    window.localStorage ?= {}
-    window.sessionStorage ?= {}
-
     val = JSON.stringify val if typeof val is 'object'
 
     if type is 'local'
@@ -45,8 +42,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   clear: (type = 'local') ->
     if type is 'local'
-      localStorage?.clear?()
-      window.localStorage = {} unless localStorage?.clear?
+      localStorage.clear()
     else
-      sessionStorage?.clear?()
-      window.sessionStorage = {} unless sessionStorage?.clear?
+      sessionStorage.clear()

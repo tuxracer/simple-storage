@@ -21,12 +21,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      if (window.localStorage == null) {
-        window.localStorage = {};
-      }
-      if (window.sessionStorage == null) {
-        window.sessionStorage = {};
-      }
       if (typeof val === 'object') {
         val = JSON.stringify(val);
       }
@@ -64,23 +58,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         type = 'local';
       }
       if (type === 'local') {
-        if (typeof localStorage !== "undefined" && localStorage !== null) {
-          if (typeof localStorage.clear === "function") {
-            localStorage.clear();
-          }
-        }
-        if ((typeof localStorage !== "undefined" && localStorage !== null ? localStorage.clear : void 0) == null) {
-          return window.localStorage = {};
-        }
+        return localStorage.clear();
       } else {
-        if (typeof sessionStorage !== "undefined" && sessionStorage !== null) {
-          if (typeof sessionStorage.clear === "function") {
-            sessionStorage.clear();
-          }
-        }
-        if ((typeof sessionStorage !== "undefined" && sessionStorage !== null ? sessionStorage.clear : void 0) == null) {
-          return window.sessionStorage = {};
-        }
+        return sessionStorage.clear();
       }
     }
   };
