@@ -42,3 +42,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       delete localStorage[key]
     else
       delete sessionStorage[key]
+
+  clear: (type = 'local') ->
+    if typeof localStorage.clear is 'function'
+      if type is 'local'
+        localStorage.clear()
+      else
+        sessionStorage.clear()
+    else
+      if type is 'local'
+        window.localStorage = {}
+      else
+        window.sessionStorage = {}

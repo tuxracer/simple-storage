@@ -59,6 +59,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       } else {
         return delete sessionStorage[key];
       }
+    },
+    clear: function(type) {
+      if (type == null) {
+        type = 'local';
+      }
+      if (typeof localStorage.clear === 'function') {
+        if (type === 'local') {
+          return localStorage.clear();
+        } else {
+          return sessionStorage.clear();
+        }
+      } else {
+        if (type === 'local') {
+          return window.localStorage = {};
+        } else {
+          return window.sessionStorage = {};
+        }
+      }
     }
   };
 });
