@@ -1,6 +1,6 @@
 {
   "name": "simple-storage",
   "version": "1.0.2",
-  "description": "Simple localStorage / sessionStorage supporting objects and arrays. Falls back to storing temporarily in memory for ancient browsers.",
+  "description": "Simple localStorage / sessionStorage supporting objects and arrays.",
   "main": "storage.js"
 }
