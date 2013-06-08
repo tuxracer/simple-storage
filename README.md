@@ -12,3 +12,5 @@ storage.set 'pets',
 
 storage.get 'pets'
 ```
+
+checkout the modern branch if you have already polyfilled localStorage/sessionStorage APIs or if you're not supporting ancient browsers
