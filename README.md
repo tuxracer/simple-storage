@@ -1,3 +1,5 @@
+sessionStorage
+
 ```coffeescript
 storage.set 'colors',
   orange: 11
@@ -5,7 +7,11 @@ storage.set 'colors',
 , 'session'
 
 storage.get 'colors', 'session'
+```
 
+localStorage
+
+```coffeescript
 storage.set 'pets',
   dogs: 3
   cats: 1
