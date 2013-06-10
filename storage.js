@@ -25,17 +25,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         val = JSON.stringify(val);
       }
       if (type === 'local') {
-        return localStorage[key] = val;
+        return localStorage.setItem(key, val);
       } else {
-        return sessionStorage[key] = val;
+        return sessionStorage.setItem(key, val);
       }
     },
     get: function(key, type) {
       var e, val;
+
       if (type == null) {
         type = 'local';
       }
-      val = type === 'local' ? localStorage[key] : sessionStorage[key];
+      val = type === 'local' ? localStorage.getItem(key) : sessionStorage.getItem(key);
       try {
         return JSON.parse(val);
       } catch (_error) {
@@ -48,9 +49,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         type = 'local';
       }
       if (type === 'local') {
-        return delete localStorage[key];
+        return localStorage.removeItem(key);
       } else {
-        return delete sessionStorage[key];
+        return sessionStorage.removeItem(key);
       }
     },
     clear: function(type) {

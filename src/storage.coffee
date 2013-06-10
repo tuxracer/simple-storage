@@ -22,12 +22,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     val = JSON.stringify val if typeof val is 'object'
 
     if type is 'local'
-      localStorage[key] = val
+      localStorage.setItem key, val
     else
-      sessionStorage[key] = val
+      sessionStorage.setItem key, val
 
   get: (key, type = 'local') ->
-    val = if type is 'local' then localStorage[key] else sessionStorage[key]
+    val = if type is 'local' then localStorage.getItem key else sessionStorage.getItem key
 
     try
       JSON.parse val
@@ -36,9 +36,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   remove: (key, type = 'local') ->
     if type is 'local'
-      delete localStorage[key]
+      localStorage.removeItem key
     else
-      delete sessionStorage[key]
+      sessionStorage.removeItem key
 
   clear: (type = 'local') ->
     if type is 'local'
