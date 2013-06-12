@@ -8,7 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ((root, factory) ->
   # CommonJS
   if typeof exports is 'object'
-    module.exports = factory()
+    module.exports = do factory
 
   # AMD
   else if typeof define is 'function' and define.amd
@@ -16,18 +16,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   # Browser global
   else
-    root.storage = factory()
+    root.storage = do factory
 ) this, ->
+  storageMethod: (type) ->
+    type = 'local' unless type is 'session'
+    window[type + 'Storage']
+
   set: (key, val, type = 'local') ->
     val = JSON.stringify val if typeof val is 'object'
 
-    if type is 'local'
-      localStorage.setItem key, val
-    else
-      sessionStorage.setItem key, val
+    @storageMethod(type).setItem key, val
 
   get: (key, type = 'local') ->
-    val = if type is 'local' then localStorage.getItem key else sessionStorage.getItem key
+    val = @storageMethod(type).getItem key
 
     try
       JSON.parse val
@@ -35,13 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       val
 
   remove: (key, type = 'local') ->
-    if type is 'local'
-      localStorage.removeItem key
-    else
-      sessionStorage.removeItem key
+    @storageMethod(type).removeItem key
 
   clear: (type = 'local') ->
-    if type is 'local'
-      localStorage.clear()
-    else
-      sessionStorage.clear()
+    do @storageMethod(type).clear

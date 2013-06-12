@@ -17,6 +17,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 })(this, function() {
   return {
+    storageMethod: function(type) {
+      if (type !== 'session') {
+        type = 'local';
+      }
+      return window[type + 'Storage'];
+    },
     set: function(key, val, type) {
       if (type == null) {
         type = 'local';
@@ -24,11 +30,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (typeof val === 'object') {
         val = JSON.stringify(val);
       }
-      if (type === 'local') {
-        return localStorage.setItem(key, val);
-      } else {
-        return sessionStorage.setItem(key, val);
-      }
+      return this.storageMethod(type).setItem(key, val);
     },
     get: function(key, type) {
       var e, val;
@@ -36,7 +38,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      val = type === 'local' ? localStorage.getItem(key) : sessionStorage.getItem(key);
+      val = this.storageMethod(type).getItem(key);
       try {
         return JSON.parse(val);
       } catch (_error) {
@@ -48,21 +50,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      if (type === 'local') {
-        return localStorage.removeItem(key);
-      } else {
-        return sessionStorage.removeItem(key);
-      }
+      return this.storageMethod(type).removeItem(key);
     },
     clear: function(type) {
       if (type == null) {
         type = 'local';
       }
-      if (type === 'local') {
-        return localStorage.clear();
-      } else {
-        return sessionStorage.clear();
-      }
+      return this.storageMethod(type).clear();
     }
   };
 });
