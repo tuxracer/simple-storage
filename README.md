@@ -1,3 +1,13 @@
+localStorage
+
+```coffeescript
+storage.set 'pets',
+  dogs: 3
+  cats: 1
+
+storage.get 'pets'
+```
+
 sessionStorage
 
 ```coffeescript
@@ -9,12 +19,6 @@ storage.set 'colors',
 storage.get 'colors', 'session'
 ```
 
-localStorage
+Derek Petersen
 
-```coffeescript
-storage.set 'pets',
-  dogs: 3
-  cats: 1
-
-storage.get 'pets'
-```
+[Google+](https://plus.google.com/118244156822447731503) | [Twitter](http://twitter.com/tuxracer)
