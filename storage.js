@@ -16,13 +16,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return root.storage = factory();
   }
 })(this, function() {
+  var storageMethod;
+
+  storageMethod = function(type) {
+    if (type !== 'session') {
+      type = 'local';
+    }
+    return window[type + 'Storage'];
+  };
   return {
-    storageMethod: function(type) {
-      if (type !== 'session') {
-        type = 'local';
-      }
-      return window[type + 'Storage'];
-    },
     set: function(key, val, type) {
       if (type == null) {
         type = 'local';
@@ -30,7 +32,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (typeof val === 'object') {
         val = JSON.stringify(val);
       }
-      return this.storageMethod(type).setItem(key, val);
+      return storageMethod(type).setItem(key, val);
     },
     get: function(key, type) {
       var e, val;
@@ -38,7 +40,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      val = this.storageMethod(type).getItem(key);
+      val = storageMethod(type).getItem(key);
       try {
         return JSON.parse(val);
       } catch (_error) {
@@ -50,13 +52,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if (type == null) {
         type = 'local';
       }
-      return this.storageMethod(type).removeItem(key);
+      return storageMethod(type).removeItem(key);
     },
     clear: function(type) {
       if (type == null) {
         type = 'local';
       }
-      return this.storageMethod(type).clear();
+      return storageMethod(type).clear();
     }
   };
 });

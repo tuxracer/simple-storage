@@ -18,17 +18,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   else
     root.storage = do factory
 ) this, ->
-  storageMethod: (type) ->
+  storageMethod = (type) ->
     type = 'local' unless type is 'session'
     window[type + 'Storage']
 
   set: (key, val, type = 'local') ->
     val = JSON.stringify val if typeof val is 'object'
 
-    @storageMethod(type).setItem key, val
+    storageMethod(type).setItem key, val
 
   get: (key, type = 'local') ->
-    val = @storageMethod(type).getItem key
+    val = storageMethod(type).getItem key
 
     try
       JSON.parse val
@@ -36,7 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       val
 
   remove: (key, type = 'local') ->
-    @storageMethod(type).removeItem key
+    storageMethod(type).removeItem key
 
   clear: (type = 'local') ->
-    do @storageMethod(type).clear
+    do storageMethod(type).clear
