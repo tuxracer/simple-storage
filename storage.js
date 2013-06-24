@@ -26,9 +26,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
   return {
     set: function(key, val, type) {
-      if (type == null) {
-        type = 'local';
-      }
       if (typeof val === 'object') {
         val = JSON.stringify(val);
       }
@@ -37,9 +34,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     get: function(key, type) {
       var e, val;
 
-      if (type == null) {
-        type = 'local';
-      }
       val = storageMethod(type).getItem(key);
       try {
         return JSON.parse(val);
@@ -48,16 +42,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return val;
       }
     },
-    remove: function(key, type) {
-      if (type == null) {
-        type = 'local';
-      }
+    remove: function(key) {
       return storageMethod(type).removeItem(key);
     },
     clear: function(type) {
-      if (type == null) {
-        type = 'local';
-      }
       return storageMethod(type).clear();
     }
   };

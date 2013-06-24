@@ -22,12 +22,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     type = 'local' unless type is 'session'
     window[type + 'Storage']
 
-  set: (key, val, type = 'local') ->
+  set: (key, val, type) ->
     val = JSON.stringify val if typeof val is 'object'
 
     storageMethod(type).setItem key, val
 
-  get: (key, type = 'local') ->
+  get: (key, type) ->
     val = storageMethod(type).getItem key
 
     try
@@ -35,8 +35,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     catch e
       val
 
-  remove: (key, type = 'local') ->
+  remove: (key) ->
     storageMethod(type).removeItem key
 
-  clear: (type = 'local') ->
+  clear: (type) ->
     do storageMethod(type).clear
