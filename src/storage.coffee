@@ -35,7 +35,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     catch e
       val
 
-  remove: (key) ->
+  remove: (key, type) ->
     storageMethod(type).removeItem key
 
   clear: (type) ->
