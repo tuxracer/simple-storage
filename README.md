@@ -19,6 +19,8 @@ storage.set 'colors',
 storage.get 'colors', 'session'
 ```
 
+This version will announce `storage:change`, `storage:remove`, and `storage:clear` events on the Chaplin mediator.
+
 Derek Petersen
 
-[Google+](https://plus.google.com/118244156822447731503) | [Twitter](http://twitter.com/tuxracer)
+[Github](https://github.com/tuxracer) | [Google+](https://plus.google.com/118244156822447731503) | [Twitter](http://twitter.com/tuxracer)

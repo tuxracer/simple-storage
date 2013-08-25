@@ -5,27 +5,33 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ###
 
-((root, factory) ->
-  # CommonJS
-  if typeof exports is 'object'
-    module.exports = do factory
+Chaplin = require 'chaplin'
 
-  # AMD
-  else if typeof define is 'function' and define.amd
-    define factory
+announce = (action, key, type = 'local', value = null) ->
+  base = 'storage:'
+  data =
+    key: key
+    value: value
+    type: type
 
-  # Browser global
-  else
-    root.storage = do factory
-) this, ->
-  storageMethod = (type) ->
-    type = 'local' unless type is 'session'
-    window[type + 'Storage']
+  Chaplin.mediator.publish base + action, data
+  Chaplin.mediator.publish base + action + ':' + key, value if key
 
+storageMethod = (type) ->
+  type = 'local' unless type is 'session'
+  window[type + 'Storage']
+
+module.exports = Storage =
   set: (key, val, type) ->
+    prev = @get key, type
+    changed = not _.isEqual(prev, val)
     val = JSON.stringify val if typeof val is 'object'
 
     storageMethod(type).setItem key, val
+
+    announce 'change', key, type, val if changed
+
+    this
 
   get: (key, type) ->
     val = storageMethod(type).getItem key
@@ -36,7 +42,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       val
 
   remove: (key, type) ->
+    prev = @get key, type
     storageMethod(type).removeItem key
+    announce 'remove', key, type, prev if prev
+    this
 
   clear: (type) ->
-    do storageMethod(type).clear
+    Object.keys(storageMethod(type)).forEach (key) =>
+      @remove key, type
+
+    announce 'clear', null, type
+
+    this
