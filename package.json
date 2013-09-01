@@ -1,0 +1,29 @@
+{
+  "name": "simple-storage",
+  "version": "2.0.4",
+  "description": "Simple localStorage / sessionStorage supporting objects and arrays",
+  "homepage": "https://github.com/tuxracer/simple-storage",
+  "author": {
+    "name": "Derek Petersen",
+    "email": "tuxracer@gmail.com",
+    "url": "https://github.com/tuxracer"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tuxracer/simple-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuxracer/simple-storage/issues"
+  },
+  "main": "storage.js",
+  "dependencies": {},
+  "keywords": [
+    "storage",
+    "localStorage",
+    "sessionStorage",
+    "json",
+    "objects",
+    "arrays"
+  ]
+}
