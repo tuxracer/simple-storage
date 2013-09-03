@@ -4,6 +4,19 @@ describe 'storage', ->
     window.sessionStorage.clear()
 
   describe '#set', ->
+    describe 'when not given any arguments', ->
+      it 'should throw an error', ->
+        expect(-> storage.set()).to.throw TypeError
+
+    describe 'when not given a second argument', ->
+      it 'should throw an error', ->
+        expect(-> storage.set 'blah').to.throw TypeError
+
+    describe 'when given a function', ->
+      it 'should throw an error', ->
+        doStuff = -> console.log 'hello'
+        expect(-> storage.set 'foo', doStuff).to.throw TypeError
+
     describe 'when not given a third argument', ->
       it 'should store a string to localStorage', ->
         storage.set 'day', 'Friday'
@@ -31,6 +44,10 @@ describe 'storage', ->
         expect(window.sessionStorage.getItem 'colors').to.equal '["red","white","blue"]'
 
   describe '#get', ->
+    describe 'when not given any arguments', ->
+      it 'should throw an error', ->
+        expect(-> storage.get()).to.throw TypeError
+
     describe 'when not given a third argument', ->
       it 'should get a string from localStorage', ->
         window.localStorage.setItem 'car', 'Tesla'

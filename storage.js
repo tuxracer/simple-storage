@@ -25,6 +25,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     return {
       set: function(key, val, type) {
+        if (!(arguments.length >= 2)) {
+          throw new TypeError('Not enough arguments');
+        }
+        if (typeof val === 'function') {
+          throw new TypeError('Cannot store functions');
+        }
         if (typeof val === 'object') {
           val = JSON.stringify(val);
         }
@@ -32,6 +38,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       },
       get: function(key, type) {
         var e, val;
+        if (key == null) {
+          throw new TypeError('Not enough arguments');
+        }
         val = storageMethod(type).getItem(key);
         try {
           return JSON.parse(val);
@@ -41,6 +50,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       },
       remove: function(key, type) {
+        if (key == null) {
+          throw new TypeError('Not enough arguments');
+        }
         return storageMethod(type).removeItem(key);
       },
       clear: function(type) {
