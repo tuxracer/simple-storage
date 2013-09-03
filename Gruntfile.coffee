@@ -4,6 +4,8 @@ module.exports = (grunt) ->
       dist:
         files:
           'storage.js': 'src/storage.coffee'
+        options:
+          bare: true
       test:
         files:
           'tmp/storage.js': 'src/storage.coffee'
