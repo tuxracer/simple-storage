@@ -5,48 +5,48 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// Compiled from CoffeeScript
 
-(function(root, factory) {
-  if (typeof exports === 'object') {
-    return module.exports = factory();
-  } else if (typeof define === 'function' && define.amd) {
-    return define(factory);
-  } else {
-    return root.storage = factory();
-  }
-})(this, function() {
-  var storageMethod;
-
-  storageMethod = function(type) {
-    if (type !== 'session') {
-      type = 'local';
+(function() {
+  (function(root, factory) {
+    if (typeof exports === 'object') {
+      return module.exports = factory();
+    } else if (typeof define === 'function' && define.amd) {
+      return define(factory);
+    } else {
+      return root.storage = factory();
     }
-    return window[type + 'Storage'];
-  };
-  return {
-    set: function(key, val, type) {
-      if (typeof val === 'object') {
-        val = JSON.stringify(val);
+  })(this, function() {
+    var storageMethod;
+    storageMethod = function(type) {
+      if (type !== 'session') {
+        type = 'local';
       }
-      return storageMethod(type).setItem(key, val);
-    },
-    get: function(key, type) {
-      var e, val;
+      return window[type + 'Storage'];
+    };
+    return {
+      set: function(key, val, type) {
+        if (typeof val === 'object') {
+          val = JSON.stringify(val);
+        }
+        return storageMethod(type).setItem(key, val);
+      },
+      get: function(key, type) {
+        var e, val;
+        val = storageMethod(type).getItem(key);
+        try {
+          return JSON.parse(val);
+        } catch (_error) {
+          e = _error;
+          return val;
+        }
+      },
+      remove: function(key, type) {
+        return storageMethod(type).removeItem(key);
+      },
+      clear: function(type) {
+        return storageMethod(type).clear();
+      }
+    };
+  });
 
-      val = storageMethod(type).getItem(key);
-      try {
-        return JSON.parse(val);
-      } catch (_error) {
-        e = _error;
-        return val;
-      }
-    },
-    remove: function(key, type) {
-      return storageMethod(type).removeItem(key);
-    },
-    clear: function(type) {
-      return storageMethod(type).clear();
-    }
-  };
-});
+}).call(this);
