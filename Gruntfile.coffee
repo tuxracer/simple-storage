@@ -3,13 +3,21 @@ module.exports = (grunt) ->
     coffee:
       dist:
         files:
-          'storage.js': 'src/storage.coffee'
+          'tmp/storage.js': 'src/storage.coffee'
         options:
           bare: true
       test:
         files:
           'tmp/storage.js': 'src/storage.coffee'
           'tmp/spec/test.js': 'test/spec/test.coffee'
+
+    uglify:
+      dist:
+        options:
+          report: 'min'
+          preserveComments: 'some'
+        src: 'tmp/storage.js'
+        dest: 'storage.js'
 
     clean:
       test: ['tmp']
@@ -33,7 +41,7 @@ module.exports = (grunt) ->
 
   # Shortcuts
   grunt.registerTask 'test', ['clean', 'coffee:test', 'mocha']
-  grunt.registerTask 'b', ['test', 'coffee:dist', 'clean']
+  grunt.registerTask 'b', ['test', 'coffee:dist', 'uglify', 'clean']
 
   # Default task
   grunt.registerTask 'default', 'b'
