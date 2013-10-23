@@ -8,14 +8,14 @@ storageMethod = (type) ->
 
 module.exports =
   set: (key, val, type) ->
-    throw new TypeError 'Not enough arguments' unless arguments.length >= 2
+    throw new Error 'Not enough arguments' unless arguments.length >= 2
     throw new TypeError 'Cannot store functions' if typeof val is 'function'
     val = JSON.stringify val if typeof val is 'object'
 
     storageMethod(type).setItem key, val
 
   get: (key, type) ->
-    throw new TypeError 'Not enough arguments' unless key?
+    throw new Error 'Not enough arguments' unless key?
     val = storageMethod(type).getItem key
 
     try
@@ -24,7 +24,7 @@ module.exports =
       val
 
   remove: (key, type) ->
-    throw new TypeError 'Not enough arguments' unless key?
+    throw new Error 'Not enough arguments' unless key?
     storageMethod(type).removeItem key
 
   clear: (type) ->

@@ -6,11 +6,11 @@ describe 'storage', ->
   describe '#set', ->
     describe 'when not given any arguments', ->
       it 'should throw an error', ->
-        expect(-> storage.set()).to.throw TypeError
+        expect(-> storage.set()).to.throw Error
 
     describe 'when not given a second argument', ->
       it 'should throw an error', ->
-        expect(-> storage.set 'blah').to.throw TypeError
+        expect(-> storage.set 'blah').to.throw Error
 
     describe 'when given a function', ->
       it 'should throw an error', ->
@@ -46,7 +46,7 @@ describe 'storage', ->
   describe '#get', ->
     describe 'when not given any arguments', ->
       it 'should throw an error', ->
-        expect(-> storage.get()).to.throw TypeError
+        expect(-> storage.get()).to.throw Error
 
     describe 'when not given a third argument', ->
       it 'should get a string from localStorage', ->
