@@ -2,23 +2,11 @@
 Copyright (c) 2013 Derek Petersen https://github.com/tuxracer/simple-storage MIT Licensed
 ###
 
-((root, factory) ->
-  # CommonJS
-  if typeof exports is 'object'
-    module.exports = do factory
+storageMethod = (type) ->
+  type = 'local' unless type is 'session'
+  window[type + 'Storage']
 
-  # AMD
-  else if typeof define is 'function' and define.amd
-    define factory
-
-  # Browser global
-  else
-    root.storage = do factory
-) this, ->
-  storageMethod = (type) ->
-    type = 'local' unless type is 'session'
-    window[type + 'Storage']
-
+module.exports =
   set: (key, val, type) ->
     throw new TypeError 'Not enough arguments' unless arguments.length >= 2
     throw new TypeError 'Cannot store functions' if typeof val is 'function'
