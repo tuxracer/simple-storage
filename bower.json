@@ -2,5 +2,12 @@
   "name": "simple-storage",
   "version": "2.1.2",
   "description": "Simple localStorage / sessionStorage supporting objects and arrays",
-  "main": "storage.js"
+  "main": "storage.js",
+  "ignore": [
+    "src",
+    "test",
+    ".*",
+    "Gruntfile.coffee",
+    "package.json"
+  ]
 }
