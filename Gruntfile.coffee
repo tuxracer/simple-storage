@@ -1,10 +1,5 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    coffee:
-      test:
-        files:
-          'tmp/spec/test.js': 'test/spec/test.coffee'
-
     browserify:
       dist:
         files:
@@ -12,6 +7,14 @@ module.exports = (grunt) ->
         options:
           transform: ['coffeeify']
           standalone: 'storage'
+      test:
+        files:
+          'test/spec/test.js': 'test/spec/test.coffee'
+        options:
+          transform: ['coffeeify']
+          extensions: [
+            '.coffee'
+          ]
 
     uglify:
       dist:
@@ -42,7 +45,7 @@ module.exports = (grunt) ->
   .forEach(grunt.loadTasks)
 
   # Shortcuts
-  grunt.registerTask 'test', ['browserify','coffee','mocha']
+  grunt.registerTask 'test', ['browserify','mocha']
   grunt.registerTask 'b', ['test','uglify','clean']
 
   # Default task

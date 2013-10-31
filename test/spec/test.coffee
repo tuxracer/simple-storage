@@ -1,3 +1,5 @@
+storage = require '../../src/storage'
+
 describe 'storage', ->
   beforeEach ->
     window.localStorage.clear()
