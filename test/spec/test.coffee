@@ -45,8 +45,8 @@ describe 'storage', ->
 
   describe '#get', ->
     describe 'when not given any arguments', ->
-      it 'should throw an error', ->
-        expect(-> storage.get()).to.throw Error
+      it 'should return null', ->
+        expect(storage.get()).to.be.null
 
     describe 'when not given a third argument', ->
       it 'should get a string from localStorage', ->

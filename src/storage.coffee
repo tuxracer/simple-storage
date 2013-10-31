@@ -15,13 +15,15 @@ module.exports =
     storageMethod(type).setItem key, val
 
   get: (key, type) ->
-    throw new Error 'Not enough arguments' unless key?
-    val = storageMethod(type).getItem key
+    if key?
+      val = storageMethod(type).getItem key
 
-    try
-      JSON.parse val
-    catch e
-      val
+      try
+        JSON.parse val
+      catch e
+        val
+    else
+      null
 
   remove: (key, type) ->
     throw new Error 'Not enough arguments' unless key?
