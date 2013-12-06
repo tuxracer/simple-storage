@@ -1,6 +1,6 @@
 {
   "name": "simple-storage",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Simple localStorage / sessionStorage supporting objects and arrays",
   "main": "storage.js",
   "ignore": [
