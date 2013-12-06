@@ -8,7 +8,6 @@ storageMethod = (type) ->
 
 module.exports =
   set: (key, val, type) ->
-    throw new Error 'Not enough arguments' unless arguments.length >= 2
     throw new TypeError 'Cannot store functions' if typeof val is 'function'
     val = JSON.stringify val if typeof val is 'object'
 

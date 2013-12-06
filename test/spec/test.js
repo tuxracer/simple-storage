@@ -14,9 +14,6 @@ storageMethod = function(type) {
 
 module.exports = {
   set: function(key, val, type) {
-    if (!(arguments.length >= 2)) {
-      throw new Error('Not enough arguments');
-    }
     if (typeof val === 'function') {
       throw new TypeError('Cannot store functions');
     }
@@ -62,20 +59,6 @@ describe('storage', function() {
     return window.sessionStorage.clear();
   });
   describe('#set', function() {
-    describe('when not given any arguments', function() {
-      return it('should throw an error', function() {
-        return expect(function() {
-          return storage.set();
-        }).to["throw"](Error);
-      });
-    });
-    describe('when not given a second argument', function() {
-      return it('should throw an error', function() {
-        return expect(function() {
-          return storage.set('blah');
-        }).to["throw"](Error);
-      });
-    });
     describe('when given a function', function() {
       return it('should throw an error', function() {
         var doStuff;
