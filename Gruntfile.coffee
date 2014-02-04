@@ -16,6 +16,14 @@ module.exports = (grunt) ->
             '.coffee'
           ]
 
+    copy:
+      test:
+        files:
+          [
+            src: 'src/storage.coffee'
+            dest: 'tmp/storage2.coffee'
+          ]
+
     uglify:
       dist:
         options:
@@ -45,7 +53,7 @@ module.exports = (grunt) ->
   .forEach(grunt.loadTasks)
 
   # Shortcuts
-  grunt.registerTask 'test', ['browserify','mocha']
+  grunt.registerTask 'test', ['copy','browserify','mocha']
   grunt.registerTask 'b', ['test','uglify','clean']
 
   # Default task
