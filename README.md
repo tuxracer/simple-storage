@@ -22,7 +22,7 @@ storage.get 'colors', 'session'
 ```
 
 # Run tests
-npm install
+npm install  
 grunt test
 
 Derek Petersen
