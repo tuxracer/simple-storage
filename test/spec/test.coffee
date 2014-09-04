@@ -154,6 +154,4 @@ describe 'storage', ->
             storage.clear 'userid'
           catch
             done()
-        
-
           
