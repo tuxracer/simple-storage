@@ -71,4 +71,7 @@ module.exports =
     storageMethod(type).removeItem key
 
   clear: (type) ->
+    # Prevent users from using wrong method to remove item in local storage
+    if type and type isnt 'local' and type isnt 'session' 
+      throw new Error 'Can only clear local or session storage.  Use storage.remove to remove key '+ type
     do storageMethod(type).clear

@@ -1,3 +1,5 @@
+
+
 localStorage
 
 ```coffeescript
@@ -18,6 +20,10 @@ storage.set 'colors',
 
 storage.get 'colors', 'session'
 ```
+
+# Run tests
+npm install  
+grunt test
 
 Derek Petersen
 
