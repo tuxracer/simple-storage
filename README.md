@@ -1,24 +1,25 @@
 localStorage
 
-```coffeescript
-storage.set 'pets',
-  dogs: 3
+```javascript
+storage.set('pets', {
+  dogs: 3,
   cats: 1
+});
 
-storage.get 'pets'
+storage.get('pets')
 ```
 
 sessionStorage
 
-```coffeescript
-storage.set 'colors',
-  orange: 11
+```javascript
+storage.set('colors', {
+  orange: 11,
   red: 13
-, 'session'
+}, 'session');
 
-storage.get 'colors', 'session'
+storage.get('colors', 'session');
 ```
 
 Derek Petersen
 
-[Google+](https://plus.google.com/118244156822447731503) | [Twitter](http://twitter.com/tuxracer)
+[Twitter](https://twitter.com/tuxracer) | [Flipboard](https://flipboard.com/@tuxracer)
