@@ -24,4 +24,4 @@ Licensed under the MIT license.
 
 Derek Petersen
 
-[Twitter](https://twitter.com/tuxracer) | [Flipboard](https://flipboard.com/@tuxracer)
+http://derek.cloud/
