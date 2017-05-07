@@ -146,3 +146,12 @@ describe 'storage', ->
           window.localStorage.setItem 'artist', 'The Hood Internet'
           storage.clear 'session'
           expect(window.localStorage.getItem 'artist').to.equal 'The Hood Internet'
+
+
+      describe 'when given neither session or local as first argument', ->
+        it 'should throw an error', (done) ->
+          try 
+            storage.clear 'userid'
+          catch
+            done()
+          
