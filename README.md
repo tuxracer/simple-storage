@@ -1,27 +1,51 @@
-localStorage
+sessionStorage
 
 ```javascript
-storage.set('pets', {
+import { simpleSessionStorage } from "simple-storage";
+
+// set items
+simpleSessionStorage.setItem("pets", {
   dogs: 3,
   cats: 1
 });
 
-storage.get('pets')
+// get item
+const pets = simpleSessionStorage.getItem("pets");
+console.log(pets); // { dogs: 3, cats: 1 }
+
+// remove item
+simpleSessionStorage.removeItem("pets");
+console.log(pets); // undefined
+
+// clear all
+simpleSessionStorage.clear();
 ```
 
-sessionStorage
+localStorage
 
 ```javascript
-storage.set('colors', {
-  orange: 11,
-  red: 13
-}, 'session');
+import { simpleLocalStorage } from "simple-storage";
 
-storage.get('colors', 'session');
+// set items
+simpleLocalStorage.setItem("pets", {
+  dogs: 3,
+  cats: 1
+});
+
+// get item
+const pets = simpleLocalStorage.getItem("pets");
+console.log(pets); // { dogs: 3, cats: 1 }
+
+// remove item
+simpleLocalStorage.removeItem("pets");
+console.log(pets); // undefined
+
+// clear all
+simpleLocalStorage.clear();
 ```
 
 Licensed under the MIT license.
 
 Derek Petersen
 
-http://derek.cloud/
+https://derek.cloud/
