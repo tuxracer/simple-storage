@@ -18,9 +18,6 @@
   },
   "main": "./dist/storage.js",
   "types": "./dist/storage.d.ts",
-  "scripts": {
-    "prepublish": "tsc"
-  },
   "dependencies": {},
   "keywords": [
     "storage",
