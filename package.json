@@ -1,6 +1,6 @@
 {
   "name": "simple-storage",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Simple localStorage / sessionStorage supporting objects and arrays",
   "homepage": "https://github.com/tuxracer/simple-storage",
   "author": {
