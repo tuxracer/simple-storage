@@ -1,7 +1,7 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 ;
-/** Fallback storage provider for environments where localStorage isn't available */
+/** Fallback storage provider for environments where the Storage API isn't available */
 var AltStorage = /** @class */ (function () {
     function AltStorage() {
         this.data = {};
@@ -18,6 +18,19 @@ var AltStorage = /** @class */ (function () {
     AltStorage.prototype.clear = function () {
         this.data = {};
     };
+    AltStorage.prototype.getData = function () {
+        return this.data;
+    };
+    AltStorage.prototype.key = function (index) {
+        return Object.keys(this.data)[index];
+    };
+    Object.defineProperty(AltStorage.prototype, "length", {
+        get: function () {
+            return Object.keys(this.data).length;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return AltStorage;
 }());
 ;
@@ -42,16 +55,43 @@ var SimpleStorage = /** @class */ (function () {
     };
     SimpleStorage.prototype.getItem = function (key) {
         var value = this.storageSource.getItem(key);
-        if (value) {
+        if (typeof value !== "string") {
+            return value;
+        }
+        try {
             return JSON.parse(value);
         }
-        return value;
+        catch (error) {
+            return value;
+        }
     };
     SimpleStorage.prototype.removeItem = function (key) {
         return this.storageSource.removeItem(key);
     };
+    /** Remove all items from storage */
     SimpleStorage.prototype.clear = function () {
         return this.storageSource.clear();
+    };
+    Object.defineProperty(SimpleStorage.prototype, "length", {
+        get: function () {
+            return this.storageSource.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SimpleStorage.prototype.getAllItems = function () {
+        var data = {};
+        for (var i = this.length - 1; i >= 0; i--) {
+            var key = this.storageSource.key(i);
+            if (key) {
+                data[key] = this.getItem(key);
+            }
+        }
+        return data;
+    };
+    SimpleStorage.prototype.getAllItemsAsync = function () {
+        var _this = this;
+        return new Promise(function (resolve) { return setTimeout(function () { return resolve(_this.getAllItems()); }); });
     };
     return SimpleStorage;
 }());

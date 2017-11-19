@@ -1,10 +1,10 @@
 export type SimpleStorageType = "session" | "local";
 
-interface StringDictionary {
+export interface StringDictionary {
   [key: string]: string;
 };
 
-/** Fallback storage provider for environments where localStorage isn't available */
+/** Fallback storage provider for environments where the Storage API isn't available */
 class AltStorage {
   private data: StringDictionary = {}
 
@@ -22,6 +22,18 @@ class AltStorage {
 
   clear() {
     this.data = {};
+  }
+
+  getData() {
+    return this.data;
+  }
+
+  key(index: number) {
+    return Object.keys(this.data)[index];
+  }
+
+  get length() {
+    return Object.keys(this.data).length;
   }
 };
 
@@ -70,8 +82,31 @@ export class SimpleStorage {
     return this.storageSource.removeItem(key);
   }
 
+  /** Remove all items from storage */
   clear() {
     return this.storageSource.clear();
+  }
+
+  get length() {
+    return this.storageSource.length;
+  }
+
+  getAllItems() {
+    const data: any = {};
+
+    for(let i = this.length - 1; i >= 0; i--) {
+      const key = this.storageSource.key(i);
+
+      if (key) {
+        data[key] = this.getItem(key);
+      }
+    }
+
+    return data;
+  }
+
+  getAllItemsAsync(): Promise<any> {
+    return new Promise((resolve) => setTimeout(() => resolve(this.getAllItems())));
   }
 };
 
