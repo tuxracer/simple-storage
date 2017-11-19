@@ -54,10 +54,16 @@ export class SimpleStorage {
 
   getItem(key: string) {
     const value = this.storageSource.getItem(key);
-    if (value) {
-      return JSON.parse(value);
+
+    if (typeof value !== "string") {
+      return value;
     }
-    return value;
+
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      return value;
+    }
   }
 
   removeItem(key: string) {
