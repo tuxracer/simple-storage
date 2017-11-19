@@ -11,8 +11,8 @@ export declare class SimpleStorage {
     /** Remove all items from storage */
     clear(): void;
     readonly length: number;
-    getAllItems(): any;
-    getAllItemsAsync(): Promise<any>;
+    getAllItems(): any[];
+    getAllItemsAsync(): Promise<any[]>;
 }
 export declare const simpleSessionStorage: SimpleStorage;
 export declare const simpleLocalStorage: SimpleStorage;

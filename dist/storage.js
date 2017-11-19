@@ -50,7 +50,7 @@ var SimpleStorage = /** @class */ (function () {
         }
     }
     SimpleStorage.prototype.setItem = function (key, rawValue) {
-        var value = JSON.stringify(rawValue);
+        var value = typeof rawValue === "string" ? rawValue : JSON.stringify(rawValue);
         this.storageSource.setItem(key, value);
     };
     SimpleStorage.prototype.getItem = function (key) {
@@ -80,14 +80,16 @@ var SimpleStorage = /** @class */ (function () {
         configurable: true
     });
     SimpleStorage.prototype.getAllItems = function () {
-        var data = {};
+        var items = [];
         for (var i = this.length - 1; i >= 0; i--) {
+            var item = {};
             var key = this.storageSource.key(i);
-            if (key) {
-                data[key] = this.getItem(key);
+            if (key !== null) {
+                item[key] = this.getItem(key);
+                items.push(item);
             }
         }
-        return data;
+        return items;
     };
     SimpleStorage.prototype.getAllItemsAsync = function () {
         var _this = this;

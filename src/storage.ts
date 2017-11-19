@@ -60,7 +60,7 @@ export class SimpleStorage {
   }
 
   setItem(key: string, rawValue: any) {
-    const value = JSON.stringify(rawValue);
+    const value = typeof rawValue === "string" ? rawValue : JSON.stringify(rawValue);
     this.storageSource.setItem(key, value);
   }
 
@@ -92,20 +92,22 @@ export class SimpleStorage {
   }
 
   getAllItems() {
-    const data: any = {};
+    const items: any[] = [];
 
     for(let i = this.length - 1; i >= 0; i--) {
+      const item: any = {};
       const key = this.storageSource.key(i);
 
-      if (key) {
-        data[key] = this.getItem(key);
+      if (key !== null) {
+        item[key] = this.getItem(key);
+        items.push(item);
       }
     }
 
-    return data;
+    return items;
   }
 
-  getAllItemsAsync(): Promise<any> {
+  getAllItemsAsync(): Promise<any[]> {
     return new Promise((resolve) => setTimeout(() => resolve(this.getAllItems())));
   }
 };

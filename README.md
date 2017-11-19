@@ -20,11 +20,11 @@ console.log(pets); // { dogs: 3, cats: 1 }
 
 // get all items
 const items = simpleSessionStorage.getAllItems();
-console.log(items); // { pets: {dogs: 3, cats: 1} }
+console.log(items); // [{ pets: {dogs: 3, cats: 1} }]
 
 // get all items async
 const i = await simpleSessionStorage.getAllItemsAsync();
-console.log(i); // { pets: {dogs: 3, cats: 1} }
+console.log(i); // [{ pets: {dogs: 3, cats: 1} }]
 
 // remove item
 simpleSessionStorage.removeItem("pets");
@@ -51,11 +51,11 @@ console.log(pets); // { dogs: 3, cats: 1 }
 
 // get all items
 const items = simpleLocalStorage.getAllItems();
-console.log(items); // { pets: {dogs: 3, cats: 1} }
+console.log(items); // [{ pets: {dogs: 3, cats: 1} }]
 
 // get all items async
 const i = await simpleLocalStorage.getAllItemsAsync();
-console.log(i); // { pets: {dogs: 3, cats: 1} }
+console.log(i); // [{ pets: {dogs: 3, cats: 1} }]
 
 // remove item
 simpleLocalStorage.removeItem("pets");
