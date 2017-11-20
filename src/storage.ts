@@ -112,7 +112,7 @@ export class SimpleStorage {
     return items;
   }
 
-  getAllItemsAsync(): Promise<any[]> {
+  getAllItemsAsync(): Promise<SimpleStorageItem[]> {
     return new Promise((resolve) => setTimeout(() => resolve(this.getAllItems())));
   }
 };
