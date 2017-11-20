@@ -1,4 +1,8 @@
 export declare type SimpleStorageType = "session" | "local";
+export interface SimpleStorageItem {
+    key: string;
+    value: any;
+}
 export interface StringDictionary {
     [key: string]: string;
 }
@@ -11,7 +15,7 @@ export declare class SimpleStorage {
     /** Remove all items from storage */
     clear(): void;
     readonly length: number;
-    getAllItems(): any[];
+    getAllItems(): SimpleStorageItem[];
     getAllItemsAsync(): Promise<any[]>;
 }
 export declare const simpleSessionStorage: SimpleStorage;

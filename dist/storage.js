@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 ;
+;
 /** Fallback storage provider for environments where the Storage API isn't available */
 var AltStorage = /** @class */ (function () {
     function AltStorage() {
@@ -85,8 +86,8 @@ var SimpleStorage = /** @class */ (function () {
             var item = {};
             var key = this.storageSource.key(i);
             if (key !== null) {
-                item[key] = this.getItem(key);
-                items.push(item);
+                var value = this.getItem(key);
+                items.push({ key: key, value: value });
             }
         }
         return items;

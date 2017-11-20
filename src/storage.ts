@@ -1,5 +1,10 @@
 export type SimpleStorageType = "session" | "local";
 
+export interface SimpleStorageItem {
+  key: string;
+  value: any;
+};
+
 export interface StringDictionary {
   [key: string]: string;
 };
@@ -92,15 +97,15 @@ export class SimpleStorage {
   }
 
   getAllItems() {
-    const items: any[] = [];
+    const items: SimpleStorageItem[] = [];
 
     for(let i = this.length - 1; i >= 0; i--) {
       const item: any = {};
       const key = this.storageSource.key(i);
 
       if (key !== null) {
-        item[key] = this.getItem(key);
-        items.push(item);
+        const value = this.getItem(key);
+        items.push({ key, value });
       }
     }
 
