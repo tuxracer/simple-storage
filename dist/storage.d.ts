@@ -17,6 +17,7 @@ export declare class SimpleStorage {
     readonly length: number;
     getAllItems(): SimpleStorageItem[];
     getAllItemsAsync(): Promise<SimpleStorageItem[]>;
+    private isLocalAndSessionStorageSupported();
 }
 export declare const simpleSessionStorage: SimpleStorage;
 export declare const simpleLocalStorage: SimpleStorage;

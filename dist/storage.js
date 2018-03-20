@@ -37,7 +37,7 @@ var AltStorage = /** @class */ (function () {
 ;
 var SimpleStorage = /** @class */ (function () {
     function SimpleStorage(storageType) {
-        if (typeof window === "undefined" || !window.sessionStorage) {
+        if (!this.isLocalAndSessionStorageSupported()) {
             this.storageSource = new AltStorage();
             return;
         }
@@ -95,6 +95,22 @@ var SimpleStorage = /** @class */ (function () {
     SimpleStorage.prototype.getAllItemsAsync = function () {
         var _this = this;
         return new Promise(function (resolve) { return setTimeout(function () { return resolve(_this.getAllItems()); }); });
+    };
+    SimpleStorage.prototype.isLocalAndSessionStorageSupported = function () {
+        if (typeof window === "undefined" || !window.sessionStorage || !window.localStorage) {
+            return false;
+        }
+        var key = "_simple-storage_test-key";
+        try {
+            // iOS in private mode causes exceptions when trying to write a new storage object, see
+            // https://stackoverflow.com/questions/14555347/html5-localstorage-error-with-safari-quota-exceeded-err-dom-exception-22-an
+            window.sessionStorage.setItem(key, "1");
+            window.sessionStorage.removeItem(key);
+        }
+        catch (error) {
+            return false;
+        }
+        return true;
     };
     return SimpleStorage;
 }());
