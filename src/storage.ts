@@ -117,12 +117,13 @@ export class SimpleStorage {
   }
 
   private isLocalAndSessionStorageSupported(): boolean {
-      if (typeof window === "undefined" || !window.sessionStorage || !window.localStorage) {
-        return false;
-      }
-
       const key = "_simple-storage_test-key";
       try {
+        // Disabling cookies can cause access to window.sessionStorage or window.localStorage to throw an exception
+        if (typeof window === "undefined" || !window.sessionStorage || !window.localStorage) {
+          return false;
+        }
+
         // iOS in private mode causes exceptions when trying to write a new storage object, see
         // https://stackoverflow.com/questions/14555347/html5-localstorage-error-with-safari-quota-exceeded-err-dom-exception-22-an
         window.sessionStorage.setItem(key, "1");
