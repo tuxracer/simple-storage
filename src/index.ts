@@ -43,7 +43,7 @@ class AltStorage {
 };
 
 export class SimpleStorage {
-  private storageSource: WindowLocalStorage["localStorage"]
+  private storageSource!: WindowLocalStorage["localStorage"]
     | WindowSessionStorage["sessionStorage"]
     | AltStorage;
 
