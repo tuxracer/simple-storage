@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "rootDir": "./src",
-        "outDir": "./dist",
+        "outDir": "./lib",
         "target": "es5",
         "lib": ["es2015", "dom"],
         "declaration": true,
