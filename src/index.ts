@@ -3,15 +3,15 @@ export type SimpleStorageType = "session" | "local";
 export interface SimpleStorageItem {
   key: string;
   value: unknown;
-};
+}
 
 export interface StringDictionary {
   [key: string]: string;
-};
+}
 
 /** Fallback storage provider for environments where the Storage API isn't available */
 class AltStorage {
-  private data: StringDictionary = {}
+  private data: StringDictionary = {};
 
   getItem(key: string) {
     return this.data[key] || null;
@@ -40,10 +40,11 @@ class AltStorage {
   get length() {
     return Object.keys(this.data).length;
   }
-};
+}
 
 export class SimpleStorage {
-  private storageSource!: WindowLocalStorage["localStorage"]
+  private storageSource!:
+    | WindowLocalStorage["localStorage"]
     | WindowSessionStorage["sessionStorage"]
     | AltStorage;
 
@@ -65,7 +66,8 @@ export class SimpleStorage {
   }
 
   setItem(key: string, rawValue: any) {
-    const value = typeof rawValue === "string" ? rawValue : JSON.stringify(rawValue);
+    const value =
+      typeof rawValue === "string" ? rawValue : JSON.stringify(rawValue);
     this.storageSource.setItem(key, value);
   }
 
@@ -99,7 +101,7 @@ export class SimpleStorage {
   getAllItems() {
     const items: SimpleStorageItem[] = [];
 
-    for(let i = this.length - 1; i >= 0; i--) {
+    for (let i = this.length - 1; i >= 0; i--) {
       const key = this.storageSource.key(i);
 
       if (key !== null) {
@@ -112,28 +114,34 @@ export class SimpleStorage {
   }
 
   getAllItemsAsync(): Promise<SimpleStorageItem[]> {
-    return new Promise((resolve) => setTimeout(() => resolve(this.getAllItems())));
+    return new Promise(resolve =>
+      setTimeout(() => resolve(this.getAllItems()))
+    );
   }
 
   private isLocalAndSessionStorageSupported(): boolean {
-      const key = "_simple-storage_test-key";
-      try {
-        // Disabling cookies can cause access to window.sessionStorage or window.localStorage to throw an exception
-        if (typeof window === "undefined" || !window.sessionStorage || !window.localStorage) {
-          return false;
-        }
-
-        // iOS in private mode causes exceptions when trying to write a new storage object, see
-        // https://stackoverflow.com/questions/14555347/html5-localstorage-error-with-safari-quota-exceeded-err-dom-exception-22-an
-        window.sessionStorage.setItem(key, "1");
-        window.sessionStorage.removeItem(key);
-      } catch (error) {
+    const key = "_simple-storage_test-key";
+    try {
+      // Disabling cookies can cause access to window.sessionStorage or window.localStorage to throw an exception
+      if (
+        typeof window === "undefined" ||
+        !window.sessionStorage ||
+        !window.localStorage
+      ) {
         return false;
       }
 
-      return true;
+      // iOS in private mode causes exceptions when trying to write a new storage object, see
+      // https://stackoverflow.com/questions/14555347/html5-localstorage-error-with-safari-quota-exceeded-err-dom-exception-22-an
+      window.sessionStorage.setItem(key, "1");
+      window.sessionStorage.removeItem(key);
+    } catch (error) {
+      return false;
+    }
+
+    return true;
   }
-};
+}
 
 export const simpleSessionStorage = new SimpleStorage("session");
 export const simpleLocalStorage = new SimpleStorage("local");

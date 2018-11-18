@@ -30,6 +30,7 @@
     "arrays"
   ],
   "devDependencies": {
+    "prettier": "1.15.2",
     "typescript": "3.1.6"
   }
 }
