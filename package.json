@@ -16,8 +16,8 @@
   "bugs": {
     "url": "https://github.com/tuxracer/simple-storage/issues"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "prepublish": "tsc"
   },
