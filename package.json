@@ -30,6 +30,6 @@
     "arrays"
   ],
   "devDependencies": {
-    "typescript": "^2.8.3"
+    "typescript": "3.1.6"
   }
 }
