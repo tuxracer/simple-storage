@@ -68,4 +68,4 @@ Licensed under the MIT license.
 
 Derek Petersen
 
-https://derek.cloud/
+https://dailyblocks.com/
